@@ -1,0 +1,13 @@
+#!/bin/bash
+#PBS -l nodes=1:ppn=4
+cd $PBS_O_WORKDIR
+cat $PBS_NODEFILE > nodes
+NO_OF_CORES=`cat $PBS_NODEFILE | egrep -v '^#'\|'^$' | wc -l | awk '{print $1}'`
+NODE_LIST=`cat $PBS_NODEFILE `
+echo $NODE_LIST
+echo "compiling..."
+mpicxx main.cpp auxiliary.cpp -o triangles -std=c++11
+echo "done!"
+echo 
+echo "executing..."
+mpirun -np $NO_OF_CORES -machinefile nodes ./triangles 

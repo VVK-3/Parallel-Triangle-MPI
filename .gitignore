@@ -1,0 +1,5 @@
+triangles
+data/
+out_dir/
+nodes
+openmp_test/
