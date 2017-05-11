@@ -9,15 +9,14 @@
 #include <string>
 #include <unordered_set>
 #include <algorithm>
-#include <omp.h>
 #include "constants.h"
 
 using namespace std;
 
 
 typedef struct {
-    int a;
-    int b;
+    int from;
+    int to;
 } Edge;
 
 typedef struct {
@@ -26,13 +25,9 @@ typedef struct {
 } Node;
 
 
-int *serializeNode(Node node);
-
-Node deserializeNode(int buffer[], int size);
-
 vector<string> split(string str, const char *delimiter);
 
-int node_proc_owner(int boundaries[], int size, int node);
+int node_owner(int boundaries[], int size, int node);
 
 long get_file_size(string fileName);
 
@@ -41,6 +36,10 @@ Edge parse_line(string line, const char *delimiter);
 map<int, Node> parse_file(string filename, const char *delimiter);
 
 int *partition_file(string filename, const char *delimiter, int chunks);
+
+int *serializeNode(Node node);
+
+Node deserializeNode(int buffer[], int size);
 
 int intersectionCount(vector<int> a, vector<int> b);
 

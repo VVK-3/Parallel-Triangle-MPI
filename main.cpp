@@ -1,6 +1,5 @@
 #include "auxiliary.h"
 #include "constants.h"
-#include <omp.h>
 #include <mpi.h>
 
 Node recv_node(MPI_Status &status);
@@ -60,7 +59,7 @@ int main() {
                 // if the neighbor does not exist in Vi, then send the node to the processor
                 // who has the neighbor as a core node
             else {
-                int proc = node_proc_owner(boundaries, world, n_id);
+                int proc = node_owner(boundaries, world, n_id);
 
                 //send to processor that holds the node if not sent already
                 if (rank != proc && last_proc != proc) {
